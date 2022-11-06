@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
 const port = 3001
@@ -34,6 +35,26 @@ app.post('/register', (req, res) => {
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })
-app.get('/products',(req,res) => {
-  res.json({productList:dbArr})
+
+const uri ='mongodb://127.0.0.1:27017/Ecommerce'
+const connect = async () => {
+  try{
+    mongoose.connect(uri,{useNewUrlParser:true, useUnifiedTopology:true})
+    console.log('Conected to Mongodb')
+  }
+  catch(error) {
+    console.error(error)
+  }
+}
+connect();
+const productsSchema = new mongoose.Schema({
+  name:{type:String, required: true},
+  price:{type:String,required: true},
+  image:{type:String,required: true}
+},{
+  collection:'products'
+});
+const Products = mongoose.model('ProductsModel',productsSchema)
+app.post('/products',async(req,res) => {
+ const data = await Products.create({name:'hello',price:'100',image:'hi'})
 })
