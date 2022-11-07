@@ -29,12 +29,15 @@ app.post('/register', (req, res) => {
       message:"recieved"
     })
   })
+
   app.get('/me', (req, res) => {
     res.json({name:'kushal'})
   })
+
   app.get('/products', (req, res) => {
     res.json({productList:dbArr})
   })
+
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })
@@ -59,5 +62,6 @@ const productsSchema = new mongoose.Schema({
 });
 const Products = mongoose.model('ProductsModel',productsSchema)
 app.post('/products',async(req,res) => {
- const data = await Products.create({name:'hello',price:'100',image:'hi'})
+  console.log(req.body)
+ const data = await Products.create(req.body)
 })
