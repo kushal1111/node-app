@@ -32,6 +32,9 @@ app.post('/register', (req, res) => {
   app.get('/me', (req, res) => {
     res.json({name:'kushal'})
   })
+  app.get('/products', (req, res) => {
+    res.json({productList:dbArr})
+  })
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })
