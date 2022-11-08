@@ -30,7 +30,7 @@ app.post('/register', (req, res) => {
     })
   })
 
-  app.get('/me', (req, res) => {
+   app.get('/me', (req, res) => {
     res.json({name:'kushal'})
   })
 
@@ -64,4 +64,18 @@ const Products = mongoose.model('ProductsModel',productsSchema)
 app.post('/products',async(req,res) => {
   console.log(req.body)
  const data = await Products.create(req.body)
+})
+
+const usersSchema = new mongoose.Schema({
+  firstName:{type:String, required: true},
+  lastName:{type:String, required: true},
+  email:{type:String, required: true},
+  password:{type:String, required: true},
+},{
+  collection:'userDetails'
+});
+const userDetails = mongoose.model('userModel',usersSchema)
+app.post('/userDetails',async(req,res) => {
+  console.log(req.body)
+ const data = await userDetails.create(req.body)
 })
